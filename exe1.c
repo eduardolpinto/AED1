@@ -12,16 +12,17 @@ int main(){
     }
     p1=recebe(p1,n);
     for(i=0;i<n;i++){
-        printf("%d\n", *p1);
+        printf("vetor[%d]= %d\n",i, *p1);
         p1++;
     }
+    free(p1);
     return 0;
 }
 int *recebe(int *p1,int n){
     int *ini,i;
     ini=p1;
     for(i=0;i<n;i++){
-        printf("Vetor[%d]= \n", i);
+        printf("Vetor[%d]= ", i);
         scanf("%d", p1);
         p1++;
     }
