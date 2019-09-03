@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+int libera = 0;
 struct cadastro{
     char nome[10];
     int dia, mes, ano;
@@ -25,7 +26,9 @@ int main(){
                 imprime(ini);
                 break;
             case 3:
+                libera=3;
                 free(ini);
+                void adiciona(cad *ini);
                 menu=4;        
         }
     }            
@@ -41,26 +44,29 @@ cad *criaLista(){
     return start;
 }
 void adiciona(cad *ini){
-    cad *aux;
+    cad *novo;
     int lixo;
-    aux=ini->proxdd;
+    novo=(cad*)malloc(sizeof(cad));
     printf("Nome: ");
     scanf("%d", &lixo);
-    fgets(ini->nome,20,stdin);
+    fflush(stdin);
+    fgets(novo->nome,20,stdin);
     printf("Dia/Mes/Ano: ");
-    scanf("%d %d %d", &ini->dia, &ini->mes, &ini->ano);
+    scanf("%d %d %d", &novo->dia, &novo->mes, &novo->ano);
     printf("CPF: ");
-    scanf("%ld", &ini->cpf);
-    ini=aux;
+    scanf("%ld", &novo->cpf);
+    novo->prox=ini->prox;
+    ini->prox=novo;
+    if(libera==3)
+        free(novo);
 }
 void imprime(cad *ini){
     cad *aux;
-    aux=ini;
-    while(ini->prox!=NULL){
-        printf("Nome: %s", ini->nome);
-        printf("Datade nasicmento: %d/%d/%d", ini->dia, ini->mes, ini->ano);
-        printf("\nCPF: %ld\n", ini->cpf);
-        ini=ini->prox;
-    }
-    ini=aux;    
+    aux=ini->prox;
+    while(aux!=NULL){
+        printf("Nome: %s", aux->nome);
+        printf("Datade nasicmento: %d/%d/%d", aux->dia, aux->mes, aux->ano);
+        printf("\nCPF: %ld\n", aux->cpf);
+        aux=aux->prox;
+    } 
 }
